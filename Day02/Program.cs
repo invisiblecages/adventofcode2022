@@ -62,9 +62,9 @@ internal class Program
     {
         string workingDirectory = Environment.CurrentDirectory;
         string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-        string path = Path.Combine(projectDirectory, "day02.txt");
+        string path = Path.Combine(projectDirectory, $"input/day02.txt");
 
-        string[] data = File.ReadAllLines(path);
+        string[] input = File.ReadAllLines(path);
 
         int sum = 0;
         int sum2 = 0;
@@ -79,10 +79,10 @@ internal class Program
         // score
         // 1 for Rock, 2 for Paper, and 3 for Scissors
         // 0 if you lost, 3 if the round was a draw, and 6 if you won
-        for (int i = 0; i < data.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            string opponent = data[i].Substring(0, 1);
-            string player = data[i].Substring(2);
+            string opponent = input[i].Substring(0, 1);
+            string player = input[i].Substring(2);
 
             if (opponent == "A" && player == "Z")
                 sum += Z + loss;
@@ -117,10 +117,10 @@ internal class Program
         // X means you need to lose
         // Y means you need to end the round in a draw
         // Z means you need to win
-        for (int i = 0; i < data.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            string opponent = data[i].Substring(0, 1);
-            string player = data[i].Substring(2);
+            string opponent = input[i].Substring(0, 1);
+            string player = input[i].Substring(2);
 
             if (opponent == "A" && player == "Z")
                 sum2 += Y + win;

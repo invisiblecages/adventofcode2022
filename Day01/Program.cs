@@ -58,25 +58,25 @@ internal class Program
     {
         string workingDirectory = Environment.CurrentDirectory;
         string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-        string path = Path.Combine(projectDirectory, "day01.txt");
+        string path = Path.Combine(projectDirectory, $"input/day01.txt");
 
-        string[] data = File.ReadAllLines(path);
+        string[] input = File.ReadAllLines(path);
         List<int> res = new List<int>();
 
         int sum = 0;
 
-        for (int i = 0; i < data.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            if (string.IsNullOrEmpty(data[i]))
+            if (string.IsNullOrEmpty(input[i]))
             {
                 res.Add(sum);
                 sum = 0;
                 continue;
             }
 
-            sum += int.Parse(data[i]);
+            sum += int.Parse(input[i]);
 
-            if (i == data.Length - 1)
+            if (i == input.Length - 1)
             {
                 res.Add(sum);
                 sum = 0;
