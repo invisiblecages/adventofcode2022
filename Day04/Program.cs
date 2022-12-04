@@ -44,7 +44,6 @@ Some of the pairs have noticed that one of their assignments fully contains the 
 
 In how many assignment pairs does one range fully contain the other?
 
-The first half of this puzzle is complete! It provides one gold star: *
 --- Part Two ---
 
 It seems like there is still quite a bit of duplicate work planned. Instead, the Elves would like to know the number of pairs that overlap at all.
@@ -66,16 +65,13 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        string workingDirectory = Environment.CurrentDirectory;
-        string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-        string path = Path.Combine(projectDirectory, $"input/day04.txt");
-
+        string path = $"../../../../input/day04.txt";
         var input = File.ReadLines(path)
             .Select(s => s.Split(",")
             .Select(s => s.Split("-")
             .Select(s => int.Parse(s))));
 
-        // slow first solution
+        // first solution
         int pairs = 0;
         int overlaps = 0;
 

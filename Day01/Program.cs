@@ -59,10 +59,9 @@ internal class Program
         string workingDirectory = Environment.CurrentDirectory;
         string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
         string path = Path.Combine(projectDirectory, $"input/day01.txt");
-
         string[] input = File.ReadAllLines(path);
-        List<int> res = new List<int>();
 
+        List<int> res = new List<int>();
         int sum = 0;
 
         for (int i = 0; i < input.Length; i++)
@@ -84,7 +83,7 @@ internal class Program
         }
 
         res.Sort();
-        Console.WriteLine(res.Max());
-        Console.WriteLine(res[res.Count - 1] + res[res.Count - 2] + res[res.Count - 3]);
+        Console.WriteLine("part one: " + res.Max());
+        Console.WriteLine($"part two: {res[res.Count - 1] + res[res.Count - 2] + res[res.Count - 3]}");
     }
 }

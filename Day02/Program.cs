@@ -63,7 +63,6 @@ internal class Program
         string workingDirectory = Environment.CurrentDirectory;
         string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
         string path = Path.Combine(projectDirectory, $"input/day02.txt");
-
         string[] input = File.ReadAllLines(path);
 
         int sum = 0;
@@ -73,12 +72,8 @@ internal class Program
         // scissors beats paper     C > Y || Z > B
         // paper beats rock         B > X || Y > A
 
-        // Opponent:    A for Rock, B for Paper, and C for Scissors.
-        // Player:      X for Rock, Y for Paper, and Z for Scissors.
-
-        // score
-        // 1 for Rock, 2 for Paper, and 3 for Scissors
-        // 0 if you lost, 3 if the round was a draw, and 6 if you won
+        // opponent:    A for Rock, B for Paper, and C for Scissors.
+        // player:      X for Rock, Y for Paper, and Z for Scissors.
         for (int i = 0; i < input.Length; i++)
         {
             string opponent = input[i].Substring(0, 1);
@@ -112,11 +107,8 @@ internal class Program
                 sum += Y + win;
         }
 
-        Console.WriteLine(sum);
+        Console.WriteLine("part one: " + sum);
 
-        // X means you need to lose
-        // Y means you need to end the round in a draw
-        // Z means you need to win
         for (int i = 0; i < input.Length; i++)
         {
             string opponent = input[i].Substring(0, 1);
@@ -150,6 +142,6 @@ internal class Program
                 sum2 += X + draw;
         }
 
-        Console.WriteLine(sum2);
+        Console.WriteLine("part two: " + sum2);
     }
 }

@@ -34,9 +34,6 @@ In the above example, the priority of the item type that appears in both compart
 
 Find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?
 
-Your puzzle answer was 8088.
-
-The first half of this puzzle is complete! It provides one gold star: *
 --- Part Two ---
 
 As you finish identifying the misplaced items, the Elves come to you with another issue.
@@ -74,9 +71,7 @@ internal class Program
         string workingDirectory = Environment.CurrentDirectory;
         string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
         string path = Path.Combine(projectDirectory, $"input/day03.txt");
-
         string[] input = File.ReadAllLines(path);
-        //input = new string[] { "vJrwpWtwJgWrhcsFMMfFFhFp", "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "PmmdzqPrVvPwwTWBwg", "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn", "ttgJtRGJQctTZtZT", "CrZsJsPPZsGzwwsLwLmpwMDw" };
 
         List<string> first = new List<string>();
         List<string> second = new List<string>();
