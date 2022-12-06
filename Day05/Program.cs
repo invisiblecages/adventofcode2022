@@ -55,25 +55,156 @@ Finally, one crate is moved from stack 1 to stack 2:
 The Elves just need to know which crate will end up on top of each stack; in this example, the top crates are C in stack 1, M in stack 2, and Z in stack 3, so you should combine these together and give the Elves the message CMZ.
 
 After the rearrangement procedure completes, what crate ends up on top of each stack?
+
+--- Part Two ---
+
+As you watch the crane operator expertly rearrange the crates, you notice the process isn't following your prediction.
+
+Some mud was covering the writing on the side of the crane, and you quickly wipe it away. The crane isn't a CrateMover 9000 - it's a CrateMover 9001.
+
+The CrateMover 9001 is notable for many new and exciting features: air conditioning, leather seats, an extra cup holder, and the ability to pick up and move multiple crates at once.
+
+Again considering the example above, the crates begin in the same configuration:
+
+    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+Moving a single crate from stack 2 to stack 1 behaves the same as before:
+
+[D]        
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+However, the action of moving three crates from stack 1 to stack 3 means that those three moved crates stay in the same order, resulting in this new configuration:
+
+        [D]
+        [N]
+    [C] [Z]
+    [M] [P]
+ 1   2   3
+
+Next, as both crates are moved from stack 2 to stack 1, they retain their order as well:
+
+        [D]
+        [N]
+[C]     [Z]
+[M]     [P]
+ 1   2   3
+
+Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate C that gets moved:
+
+        [D]
+        [N]
+        [Z]
+[M] [C] [P]
+ 1   2   3
+
+In this example, the CrateMover 9001 has put the crates in a totally different order: MCD.
+
+Before the rearrangement process finishes, update your simulation so that the Elves know where they should stand to be ready to unload the final supplies. After the rearrangement procedure completes, what crate ends up on top of each stack?
 */
 namespace Day05;
 
 internal class Program
 {
-    static void Main(string[] args)
+    private static readonly string path = $"../../../../input/day05.txt";
+    private static readonly string[] input = File.ReadAllLines(path);
+    private static int procedureIndex = 0;
+
+    static Stack<char> Reverse(Stack<char> stack)
     {
-        string path = $"../../../../input/day05.txt";
-        string[] input = File.ReadAllLines(path);
-        input = new string[] { "ZN", "MCD", "P" };
+        Stack<char> temp = new();
+        while (stack.Count > 0)
+            temp.Push(stack.Pop());
 
-        /*
-         * move 1 from 2 to 1
-         * move 3 from 1 to 3
-         * move 2 from 2 to 1
-         * move 1 from 1 to 2
-         */
+        return temp;
+    }
 
+    static List<Stack<char>> ParseInput()
+    {
+        List<Stack<char>> stacks = new();
+        for (int i = 0; i < (input[0].Length + 1) / 4; i++)
+            stacks.Add(new Stack<char>());
 
+        for (int i = 0; i < input.Length; i++)
+        {
+            for (int j = 0; j < input[i].Length; j++)
+            {
+                int charIndex = (j * 4) + 1;
+                if (charIndex > input[i].Length)
+                    break;
 
+                char c = input[i][charIndex];
+                if (c >= 'A' && c <= 'Z')
+                    stacks[j].Push(c);
+            }
+
+            if (input[i] == "")
+            {
+                for (int k = 0; k < stacks.Count; k++)
+                    stacks[k] = Reverse(stacks[k]);
+
+                procedureIndex = i + 1;
+                break;
+            }
+        }
+
+        return stacks;
+    }
+
+    static void Day1(List<Stack<char>> stacks)
+    {
+        for (int i = procedureIndex; i < input.Length; i++)
+        {
+            string[] procedure = input[i].Split(" ");
+
+            int move = int.Parse(procedure[1]);
+            int from = int.Parse(procedure[3]) - 1;
+            int to = int.Parse(procedure[5]) - 1;
+
+            for (int j = 0; j < move; j++)
+                stacks[to].Push(stacks[from].Pop());
+        }
+
+        PrintResults(stacks);
+    }
+
+    static void Day2(List<Stack<char>> stacks)
+    {
+        for (int i = procedureIndex; i < input.Length; i++)
+        {
+            Stack<char> temp = new();
+            string[] procedure = input[i].Split(" ");
+
+            int move = int.Parse(procedure[1]);
+            int from = int.Parse(procedure[3]) - 1;
+            int to = int.Parse(procedure[5]) - 1;
+
+            for (int j = 0; j < move; j++)
+                temp.Push(stacks[from].Pop());
+
+            while (temp.Count > 0)
+                stacks[to].Push(temp.Pop());
+        }
+
+        PrintResults(stacks);
+    }
+
+    static void PrintResults(List<Stack<char>> stacks)
+    {
+        string res = "";
+        foreach (var stack in stacks)
+            res += stack.Peek();
+
+        Console.WriteLine(res);
+    }
+
+    static void Main()
+    {
+        Day1(ParseInput());
+        Day2(ParseInput());
     }
 }
