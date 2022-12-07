@@ -155,7 +155,7 @@ internal class Program
         return stacks;
     }
 
-    static void Day1(List<Stack<char>> stacks)
+    static void Part1(List<Stack<char>> stacks)
     {
         for (int i = procedureIndex; i < input.Length; i++)
         {
@@ -172,7 +172,7 @@ internal class Program
         PrintResults(stacks);
     }
 
-    static void Day2(List<Stack<char>> stacks)
+    static void Part2(List<Stack<char>> stacks)
     {
         for (int i = procedureIndex; i < input.Length; i++)
         {
@@ -204,7 +204,7 @@ internal class Program
 
     static void Main()
     {
-        Day1(ParseInput());
-        Day2(ParseInput());
+        Part1(ParseInput());
+        Part2(ParseInput());
     }
 }
